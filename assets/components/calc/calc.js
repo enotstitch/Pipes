@@ -17,6 +17,12 @@ class Calc {
 		this.unitValue = this.elem.querySelector('.calc-unit__value');
 		this.squareValue = this.elem.querySelector('.calc-square__input');
 		this.calculatePriceValue = this.elem.querySelector('[data-price-value]');
+
+		this.hiddenService = this.elem.querySelector('#calc-service');
+		this.hiddenCost = this.elem.querySelector('#calc-cost');
+		this.hiddenMeter = this.elem.querySelector('#calc-meter');
+
+		console.log(this.hiddenService);
 	}
 
 	events() {
@@ -27,6 +33,7 @@ class Calc {
 				this.meterCost = costValue;
 				this.unitValue.textContent = this.meterCost;
 				this.calculation();
+				this.hiddenService.value = target.textContent.trim();
 			});
 		});
 
@@ -37,7 +44,9 @@ class Calc {
 		});
 
 		this.squareValue.addEventListener('input', (e) => {
-			const isFirstSymb = +e.target.value > 0 && e.data == '0' && e.target.value[0] == 0;
+			const isFirstSymb =
+				(+e.target.value > 0 && e.data == '0' && e.target.value[0] == 0) ||
+				(e.target.value[1] == 0 && +e.target.value == 0);
 
 			if (e.target.value > this.maxValue || isFirstSymb) {
 				e.target.value = this.meterValue;
@@ -79,6 +88,8 @@ class Calc {
 		this.totalPrice = this.meterCost * this.meterValue;
 		this.formatting();
 		this.calculatePriceValue.textContent = this.totalPrice;
+		this.hiddenCost.value = this.totalPrice;
+		this.hiddenMeter.value = this.meterValue;
 	}
 
 	formatting() {

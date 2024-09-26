@@ -23,7 +23,8 @@ if (menuLinks.length > 0) {
 			const gotoBlockValue =
 				gotoBlock.getBoundingClientRect().top +
 				pageYOffset -
-				document.querySelector('header').offsetHeight;
+				document.querySelector('header').offsetHeight -
+				110;
 
 			if (menuBurger.classList.contains('active')) {
 				document.body.classList.remove('lock');
